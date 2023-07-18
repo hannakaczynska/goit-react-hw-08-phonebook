@@ -1,24 +1,48 @@
-import { fetchContacts } from 'redux/operations';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Contacts from 'pages/Contacts';
-import Login from 'pages/Login';
-import Register from 'pages/Register';
+import Navigation from './Navigation/Navigation';
+// import UserMenu from './UserMenu/UserMenu';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
+
+const Contacts = lazy(() => import('../pages/Contacts'));
+const Login = lazy(() => import('../pages/Login'));
+const Register = lazy(() => import('../pages/Register'));
+const NotFound = lazy(() => import('../pages/NotFound'));
+const Home = lazy(() => import('../pages/Home'));
 
 export const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register/>}/>
-      <Route path="/contacts" element={<Contacts/>}/>
-    </Routes>
-      
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Navigation />}>
+          <Route index element={<Home />} />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/contacts" component={<Login />} />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<Register />}
+              />
+            }
+          />
+        </Route>
+        {/* <Route path="/contacts" element={<UserMenu />}> */}
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<Contacts />} />
+          }
+        />
+        {/* </Route> */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 };
