@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@mui/material/Button';
+import { SendRounded } from "@mui/icons-material"
 import { register } from 'redux/auth/operations';
 import { useDispatch } from 'react-redux';
 
@@ -30,7 +32,7 @@ const Register = () => {
       <label> Password
         <input name="password" type="password"></input>
       </label>
-      <button type="submit">Send</button>
+      <Button variant="contained" size="medium" endIcon={<SendRounded />} type="submit">Register</Button>
     </form>
   );
 };

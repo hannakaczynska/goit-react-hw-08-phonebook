@@ -1,9 +1,11 @@
-import { Suspense, lazy } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navigation from './Navigation/Navigation';
-// import UserMenu from './UserMenu/UserMenu';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
+import { useDispatch } from 'react-redux';
+import { refreshUser } from 'redux/auth/operations';
+import { useAuth } from 'hooks';
 
 const Contacts = lazy(() => import('../pages/Contacts'));
 const Login = lazy(() => import('../pages/Login'));
@@ -12,7 +14,16 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 const Home = lazy(() => import('../pages/Home'));
 
 export const App = () => {
-  return (
+  const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  return isRefreshing ? (
+    <div>Refreshing user...</div>
+  ) : (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<Navigation />}>
@@ -33,14 +44,12 @@ export const App = () => {
             }
           />
         </Route>
-        {/* <Route path="/contacts" element={<UserMenu />}> */}
         <Route
           path="/contacts"
           element={
             <PrivateRoute redirectTo="/login" component={<Contacts />} />
           }
         />
-        {/* </Route> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
