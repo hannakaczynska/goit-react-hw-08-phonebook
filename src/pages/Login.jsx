@@ -1,17 +1,29 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { logIn } from 'redux/auth/operations';
 
 const Login = () => {
+  const dispatch = useDispatch();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    dispatch(logIn({
+      email: form.elements.email.value,
+      password: form.elements.password.value,
+    }));
+    form.reset()
+  };
 
   return (
-        <form>
+        <form onSubmit={handleSubmit}>
       <label> E-mail
-        <input type="text"></input>
+        <input name="email" type="email"></input>
       </label>
       <label> Password
-        <input type="text"></input>
+        <input name="password" type="password"></input>
       </label>
-      <button type="submit">Login</button>
+      <button type="submit">Log In</button>
     </form>
   )
 }

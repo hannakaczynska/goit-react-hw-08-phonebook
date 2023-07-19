@@ -12,24 +12,24 @@ const ContactForm = () => {
   const prevContacts = useSelector(selectContacts);
 
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const nameChange = e => {
     setName(e.target.value);
   };
 
-  const phoneChange = e => {
-    setPhone(e.target.value);
+  const numberChange = e => {
+    setNumber(e.target.value);
   };
 
   const reset = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
-  const findContactPhone = (contacts, number) => {
+  const findContactNumber = (contacts, number) => {
     return contacts.find(
-      contact => contact.phone.replace(/[^\d]/g, '') === number
+      contact => contact.number.replace(/[^\d]/g, '') === number
     );
   };
 
@@ -39,17 +39,17 @@ const ContactForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const onlyNumber = phone.replace(/[^\d]/g, '');
-    const checkNumber = findContactPhone(prevContacts, onlyNumber);
+    const onlyNumber =number.replace(/[^\d]/g, '');
+    const checkNumber = findContactNumber(prevContacts, onlyNumber);
     const lowerName = name.toLowerCase();
     const checkName = findContactName(prevContacts, lowerName);
-    const contact = { name, phone };
+    const contact = { name, number };
     if (!checkNumber && !checkName) {
       dispatch(addContact(contact));
     } else if (checkName) {
       Notiflix.Notify.info(`${name} is already in contacts.`);
     } else if (checkNumber) {
-      Notiflix.Notify.info(`${phone} is already in contacts.`);
+      Notiflix.Notify.info(`${number} is already in contacts.`);
     }
     reset();
   };
@@ -74,11 +74,11 @@ const ContactForm = () => {
       <input
         id={numberInputId}
         type="tel"
-        name="phone"
-        value={phone}
+        name="number"
+        value={number}
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        onChange={phoneChange}
+        onChange={numberChange}
         required
       />
       <button className={css.formButton} type="submit">
