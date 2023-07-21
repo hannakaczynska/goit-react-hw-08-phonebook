@@ -1,14 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import css from './Navigation.module.css'
+
+const StyledLink = styled(NavLink)`
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+
+  &.active {
+    color: green;
+  }
+`;
 
 const Navigation = () => {
+
   return (
     <>
-      <div>
-        <Link to="/register">Register</Link>
-        <Link to="/login">Log In</Link>
+      <div className={css.navigation}>
+        <StyledLink to="/register">Register</StyledLink>
+        <StyledLink to="/login">Log In</StyledLink>
       </div>
       <Suspense>
         <Outlet />

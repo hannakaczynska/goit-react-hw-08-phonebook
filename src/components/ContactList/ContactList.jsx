@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectFilteredContacts } from 'redux/contacts/selectors';
 import { deleteContact } from 'redux/contacts/operations';
 import { nanoid } from 'nanoid';
+import Button from '@mui/material/Button';
 import css from './ContactList.module.css';
 
 const ContactList = () => {
@@ -19,16 +20,17 @@ const ContactList = () => {
         return (
           <li className={css.contact} key={nanoid()}>
             <div>
-              {contact.name}: {contact.phone}
+              {contact.name}: {contact.number}
             </div>
-            <button
-              className={css.contactButton}
+            <Button
+              variant="outlined" 
               type="button"
               id={contact.id}
               onClick={handleClick}
+              color="error"
             >
               Delete
-            </button>
+            </Button>
           </li>
         );
       })}

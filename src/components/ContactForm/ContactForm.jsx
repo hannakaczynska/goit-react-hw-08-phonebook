@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
+import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 import { addContact } from 'redux/contacts/operations';
 import { selectContacts } from 'redux/contacts/selectors';
 import Notiflix from 'notiflix';
@@ -59,31 +61,34 @@ const ContactForm = () => {
 
   return (
     <form className={css.form} onSubmit={handleSubmit}>
-      <label htmlFor={nameInputId}>Name</label>
-      <input
+      <TextField
         id={nameInputId}
+        label="Name"
         type="text"
         name="name"
         value={name}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        size="small"
         onChange={nameChange}
         required
       />
-      <label htmlFor={numberInputId}>Number</label>
-      <input
+      <TextField
         id={numberInputId}
+        label="Number"
         type="tel"
         name="number"
         value={number}
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+        size="small"
+        margin="normal"
         onChange={numberChange}
         required
       />
-      <button className={css.formButton} type="submit">
+      <Button variant="outlined" type="submit" color="success">
         Add contact
-      </button>
+      </Button>
     </form>
   );
 };

@@ -1,0 +1,9 @@
+.navigation {
+    display: flex;
+    gap: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    justify-content: flex-end;
+    border-bottom: 1px solid gray;
+    padding-right: 40px;
+}
