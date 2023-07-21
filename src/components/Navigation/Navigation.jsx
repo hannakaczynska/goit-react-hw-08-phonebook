@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import css from './Navigation.module.css'
+import css from './Navigation.module.css';
 
 const StyledLink = styled(NavLink)`
   color: black;
@@ -16,7 +16,6 @@ const StyledLink = styled(NavLink)`
 `;
 
 const Navigation = () => {
-
   return (
     <>
       <div className={css.navigation}>

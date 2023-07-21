@@ -41,7 +41,7 @@ const ContactForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const onlyNumber =number.replace(/[^\d]/g, '');
+    const onlyNumber = number.replace(/[^\d]/g, '');
     const checkNumber = findContactNumber(prevContacts, onlyNumber);
     const lowerName = name.toLowerCase();
     const checkName = findContactName(prevContacts, lowerName);

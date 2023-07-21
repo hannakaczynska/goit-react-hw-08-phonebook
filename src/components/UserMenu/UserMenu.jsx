@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { selectUser } from 'redux/auth/selectors';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/operations';
-import css from './UserMenu.module.css'
+import css from './UserMenu.module.css';
 
 const UserMenu = () => {
   const { email } = useSelector(selectUser);
   const dispatch = useDispatch();
-  
+
   const handleClick = e => {
     dispatch(logOut());
   };
@@ -22,7 +22,7 @@ const UserMenu = () => {
         size="small"
         type="button"
         onClick={handleClick}
-        endIcon={<LogoutRoundedIcon/>}
+        endIcon={<LogoutRoundedIcon />}
         color="success"
       >
         Logout

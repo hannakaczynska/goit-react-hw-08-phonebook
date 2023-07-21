@@ -19,17 +19,17 @@ const Filter = () => {
   return (
     <>
       <div className={css.filter}>
-      <label htmlFor={filterInputId}>Find contacts by name</label>
-      <TextField
-        id={filterInputId}
-        type="text"
-        name="filter"
-        value={filter}
-        size='small'
-        title="Find contact by name"
-        onChange={handleFinding}
+        <label htmlFor={filterInputId}>Find contacts by name</label>
+        <TextField
+          id={filterInputId}
+          type="text"
+          name="filter"
+          value={filter}
+          size="small"
+          title="Find contact by name"
+          onChange={handleFinding}
         />
-        </div>
+      </div>
     </>
   );
 };

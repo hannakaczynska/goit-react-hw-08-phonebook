@@ -23,7 +23,7 @@ const ContactList = () => {
               {contact.name}: {contact.number}
             </div>
             <Button
-              variant="outlined" 
+              variant="outlined"
               type="button"
               id={contact.id}
               onClick={handleClick}
